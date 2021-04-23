@@ -35,6 +35,7 @@ void cocktail_sort(int *A) {
     }
 }
 
+// Prints array
 void print(const int arr[], const int size) {
     std::cout << "[ ";
     for(int i{0}; i < size; i++) {
@@ -48,7 +49,11 @@ void print(const int arr[], const int size) {
     std::cout << " ]" << std::endl;
 }
 
+// Creates array with random numbers between 1 and 100
 int *array() {
+    // There is a GCC bug with random library that returns
+    // the same values with each execution. This GCC bug is
+    // already fixed in GCC version 9.2.
     std::random_device generator;
     std::mt19937 engine(generator());
     std::uniform_int_distribution<int> dist(1, 100);
