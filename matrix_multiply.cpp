@@ -2,8 +2,16 @@
 #include <random>
 
 // Print array function
-void printArray(int (*Array)[3][3]) {
-    for (int(*p)[3][3]{Array}; p < Array + 3;  p++) {
+void printArray(int (*Array)[3][3], int num) {
+    int pass = 0;
+    if (num == 0) {
+            num = 3;
+            pass = 1;    
+    }
+    for (int(*p)[3][3]{Array}; p < Array + num;  p++) {
+        if ((num == 3) && (pass == 0)) {
+            p += 2;
+        }
         if (p == Array) {
             std::cout << "[";
         }
@@ -30,12 +38,18 @@ void printArray(int (*Array)[3][3]) {
             }
         }
         std::cout << "]";
-        if ( p + 1 != Array + 3) {
+        if ( p + 1 != Array + num) {
             std::cout << ", ";
         }
     }
-    std::cout << "]";
+    if (pass == 1) {
+        std::cout << "]";
+    }
+    if (num != 3) {
+        std::cout << "]";
+    } 
 }
+
 
 void set3DArray(int (*randArray)[3][3]) {
     std::random_device generator;
@@ -107,13 +121,15 @@ int main() {
     int A[3][3][3] = {{{11, 12, 13}, {14, 15, 16}, {17, 18, 19}}, 
                       {{21, 22, 23}, {24, 25, 26}, {27, 28, 29}}, 
                       {{31, 32, 33}, {34, 35, 36}, {37, 38, 39}}};
-    std::cout << "Matrix A before multiply:" << std::endl;
-    printArray(A);
+    std::cout << "Arrays from matrix A to multiply:" << std::endl;
+    printArray(A, 2);
     std::cout << std::endl;
-
-    std::cout << "Matrix A after multiply:" << std::endl;;
+    std::cout << "Result array from arrays multiplication:" << std::endl;
     multiplyArray(A);
-    printArray(A);
+    printArray(A, 3);
+    std::cout << std::endl;
+    std::cout << "Complete matrix A:" << std::endl;
+    printArray(A, 0);
     std::cout << std::endl << std::endl;
 
     
@@ -121,24 +137,29 @@ int main() {
     // de la función set3DArray se fijan valores aleatorios a la matriz
     int B[3][3][3];
     set3DArray(B);
-    std::cout << "Matrix B before multiply:" << std::endl;
-    printArray(B);
+    std::cout << "Arrays from matrix B to multiply:" << std::endl;
+    printArray(B, 2);
     std::cout << std::endl;
-
-    std::cout << "Matrix B after multiply:" << std::endl;
-    multiplyArray(B);
-    printArray(B);
+    std::cout << "Result array from arrays multiplication:" << std::endl;
+    multiplyArray(A);
+    printArray(B, 3);
+    std::cout << std::endl;
+    std::cout << "Complete matrix B:" << std::endl;
+    printArray(B, 0);
     std::cout << std::endl << std::endl;
 
     // C es una matriz cuyos valores son asignados mediante la 
     // función create3DArray
     int (*C)[3][3] = create3DArray();
-    std::cout << "Matrix C before multiply:" << std::endl;
-    printArray(C);
+    std::cout << "Arrays from matrix C to multiply:" << std::endl;
+    printArray(C, 2);
     std::cout << std::endl;
-
-    std::cout << "Matrix C after multiply:" << std::endl;
+    std::cout << "Result array from arrays multiplication:" << std::endl;
     multiplyArray(C);
-    printArray(C);
+    printArray(C, 3);
+    std::cout << std::endl;
+    std::cout << "Complete matrix C:" << std::endl;
+    printArray(C, 0);
+    std::cout << std::endl << std::endl;
     delete[] C;
 }
