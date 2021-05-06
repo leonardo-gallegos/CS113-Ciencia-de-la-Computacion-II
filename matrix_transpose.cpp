@@ -172,5 +172,6 @@ int main() {
     transposeArray(C);
     printArray(C);
     std::cout << std::endl;
+    delete[] C;
     
 }
